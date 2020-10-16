@@ -1,4 +1,4 @@
-<p align="center">
+<p align="center"> Desenvolvido com:
   <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo_text.svg" width="320" alt="Nest Logo" /></a>
 </p>
 
@@ -7,7 +7,7 @@
 [linux-image]: https://img.shields.io/travis/nestjs/nest/master.svg?label=linux
 [linux-url]: https://travis-ci.org/nestjs/nest
   
-  <p align="center">A progressive <a href="http://nodejs.org" target="blank">Node.js</a> framework for building efficient and scalable server-side applications, heavily inspired by <a href="https://angular.io" target="blank">Angular</a>.</p>
+  <p align="center"></p>
     <p align="center">
 <a href="https://www.npmjs.com/~nestjscore"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
 <a href="https://www.npmjs.com/~nestjscore"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
@@ -24,17 +24,20 @@
   <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
   [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
 
-## Description
+## Descrição
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+Projeto desenvolvido conforme o [desafio](https://gist.github.com/lBrunol/5f2870294d3d5f24cfcb8cdb88d51504) proposto pela empresa [Envoy](https://envoy.tec.br/). Consiste de uma API Back-end simulando uma locadora de filmes, onde é possível listar (todos ou por ID), criar, atualizar, apagar filmes, e também alugar, listar e devolver locações por meio de endpoints REST. A API utiliza como banco de dados um arquivo sqlite presente na pasta db. Mais detalhes sobre o funcionamento da aplicação estarão em READMEs de cada pasta.
 
-## Installation
+## Desafios
+O principal desafio no desenvolvimento desta API está no fato de eu ter precisado sair da minha zona de conforto, que consistia de utilizar Express, MongoDB e desenvolver sem seguir muitas patterns e arquiteturas. Como na descrição do desafio sugeriram o Nest.js, resolvi aprendê-lo, o que me tomou dois dos cinco dias disponíveis para entrega, visto que eu não era nada familiarizado com o *workflow* do framework, nem com Orientação a Objetos e também com TypeScript ou SQL. Foi uma jornada de aprendizado incrível mas nem tão complicada devido às minha experiências anteriores. No projeto é possível encontrar design patterns como DTO (Data Transfer Object), Repositories (arquivo responsável pelas transações com o banco de dados), e o sistema empregado pelo próprio Nest, de Modules, Services e Controllers. 
+
+## Instalação
 
 ```bash
 $ npm install
 ```
 
-## Running the app
+## Rodando a API
 
 ```bash
 # development
@@ -42,9 +45,6 @@ $ npm run start
 
 # watch mode
 $ npm run start:dev
-
-# production mode
-$ npm run start:prod
 ```
 
 ## Test
@@ -59,16 +59,6 @@ $ npm run test:e2e
 # test coverage
 $ npm run test:cov
 ```
-
-## Support
-
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
 
 ## License
 

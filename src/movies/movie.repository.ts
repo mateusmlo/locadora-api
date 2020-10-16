@@ -1,10 +1,17 @@
 import { EntityRepository, Repository } from 'typeorm';
-import { CreateMovieDTO } from './dto/create-movie.dto';
+import { MovieDTO } from './dto/movie.dto';
 import { Movie } from './movie.entity';
 
 @EntityRepository(Movie)
 export class MovieRepository extends Repository<Movie> {
-  async createMovie(createMovieDto: CreateMovieDTO) {
+  async getMovies() {
+    const query = this.createQueryBuilder('movie');
+    const movies = await query.getMany();
+
+    return movies;
+  }
+
+  async createMovie(movieDto: MovieDTO) {
     const {
       title,
       synopsis,
@@ -15,7 +22,7 @@ export class MovieRepository extends Repository<Movie> {
       director,
       IMDB,
       quantity,
-    } = createMovieDto;
+    } = movieDto;
 
     const movie = new Movie();
 

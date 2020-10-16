@@ -7,7 +7,7 @@ import {
   MinLength,
 } from 'class-validator';
 
-export class CreateMovieDTO {
+export class MovieDTO {
   @IsNotEmpty()
   title: string;
 

@@ -10,7 +10,19 @@ export class RentalService {
     private rentalRepository: RentalRepository,
   ) {}
 
+  async getRentedMovies() {
+    return this.rentalRepository.getRentedMovies();
+  }
+
   async rentMovie(rentalDto: RentalDTO) {
     return this.rentalRepository.rentMovie(rentalDto);
+  }
+
+  async returnRent(rentalDto: RentalDTO) {
+    return this.rentalRepository.returnRent(rentalDto);
+  }
+
+  async getExpiredRents() {
+    return this.rentalRepository.getExpiredRents();
   }
 }

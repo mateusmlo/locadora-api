@@ -18,7 +18,7 @@ export class Rental extends BaseEntity {
   movie: Movie;
 
   @Column()
-  movieTitle: string;
+  movie_title: string;
 
   @Column()
   quantity: number;

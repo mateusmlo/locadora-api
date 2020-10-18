@@ -1,6 +1,9 @@
 import {
   Body,
   Controller,
+  Delete,
+  Get,
+  Patch,
   Post,
   UsePipes,
   ValidationPipe,
@@ -12,9 +15,24 @@ import { RentalService } from './rental.service';
 export class RentalController {
   constructor(private rentalService: RentalService) {}
 
+  @Get()
+  async getRentedMovies() {
+    return this.rentalService.getRentedMovies();
+  }
+
+  @Delete('/devolve')
+  async returnRent(@Body() rentalDto: RentalDTO) {
+    return this.rentalService.returnRent(rentalDto);
+  }
+
   @Post()
   @UsePipes(ValidationPipe)
-  rentMovie(@Body() rentalDto: RentalDTO) {
+  async rentMovie(@Body() rentalDto: RentalDTO) {
     return this.rentalService.rentMovie(rentalDto);
+  }
+
+  @Get('/expired')
+  async getExpiredRents() {
+    return this.rentalService.getExpiredRents();
   }
 }

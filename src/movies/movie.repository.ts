@@ -1,6 +1,9 @@
 import { EntityRepository, Repository } from 'typeorm';
 import { MovieDTO } from './dto/movie.dto';
 import { Movie } from './movie.entity';
+import moment = require('moment');
+import 'moment/locale/pt-br';
+moment.locale('pt-br');
 
 @EntityRepository(Movie)
 export class MovieRepository extends Repository<Movie> {
@@ -21,7 +24,6 @@ export class MovieRepository extends Repository<Movie> {
       subbed,
       director,
       IMDB,
-      quantity,
     } = movieDto;
 
     const movie = new Movie();
@@ -29,15 +31,19 @@ export class MovieRepository extends Repository<Movie> {
     movie.title = title;
     movie.synopsis = synopsis;
     movie.gender = gender;
-    movie.release_date = release_date;
+    movie.release_date = this.setDay(release_date).format('L');
     movie.language = language;
-    movie.subbed = Boolean(subbed);
+    movie.subbed = subbed;
     movie.director = director;
     movie.IMDB = IMDB;
-    movie.quantity = Number(quantity);
+    movie.quantity = 1;
 
     await movie.save();
 
     return movie;
+  }
+
+  private setDay(date: string) {
+    return moment(date, 'DD-MM-YYYY');
   }
 }

@@ -1,11 +1,4 @@
-import {
-  IsBoolean,
-  IsNotEmpty,
-  IsNumber,
-  IsOptional,
-  MaxLength,
-  MinLength,
-} from 'class-validator';
+import { IsNotEmpty, IsOptional, MaxLength, MinLength } from 'class-validator';
 
 export class MovieDTO {
   @IsNotEmpty()
@@ -34,6 +27,5 @@ export class MovieDTO {
   @IsOptional()
   IMDB: string;
 
-  @IsNotEmpty()
   quantity: number;
 }

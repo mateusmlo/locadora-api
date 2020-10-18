@@ -61,13 +61,13 @@ $ npm run test:cov
 ```
 ## TODO
 
- - [ ] Implementar cadastro de locações
+ - [x] Implementar cadastro de locações
  
  - Endpoints:
 
 	 - [ ] GET /rental
 	 - [ ] GET /rental/expire
-	 - [ ] POST /rental
+	 - [x] POST /rental
 	 - [ ] PATCH /rental/devolve
 
 ## License

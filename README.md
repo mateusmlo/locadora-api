@@ -59,16 +59,6 @@ $ npm run test:e2e
 # test coverage
 $ npm run test:cov
 ```
-## TODO
-
- - [x] Implementar cadastro de locações
- 
- - Endpoints:
-
-	 - [ ] GET /rental
-	 - [ ] GET /rental/expire
-	 - [x] POST /rental
-	 - [ ] PATCH /rental/devolve
 
 ## License
 

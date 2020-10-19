@@ -33,7 +33,7 @@ $ yarn start:dev
 
 ```bash
 # unit tests
-$ npm run test
+$ yarn test
 
 ```
 

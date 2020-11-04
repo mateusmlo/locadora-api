@@ -3,7 +3,7 @@ import { RentalDTO } from './dto/rental.dto';
 import { Rental } from './rental.entity';
 import moment = require('moment');
 import 'moment/locale/pt-br';
-import { Movie } from 'src/movies/movie.entity';
+import Movie from 'src/movies/movie.entity';
 import { Logger, NotFoundException } from '@nestjs/common';
 moment.locale('pt-br');
 
@@ -36,7 +36,7 @@ export class RentalRepository extends Repository<Rental> {
 
       //update movie quantity
       mv.quantity += 1;
-      await mv.save();
+      //await mv.save();
 
       // remove rent column
       return {
@@ -95,7 +95,7 @@ export class RentalRepository extends Repository<Rental> {
     try {
       // update movie quantity
       mv.quantity -= 1;
-      await mv.save();
+      // await mv.save();
 
       //perform rent
       await rent.save();

@@ -1,7 +1,6 @@
 import { NotFoundException } from '@nestjs/common';
 import { Test } from '@nestjs/testing';
-import { MovieRepository } from './movie.repository';
-import { MoviesService } from './movies.service';
+import MoviesService from './movies.service';
 
 const mockMovie = {
   id: 1,

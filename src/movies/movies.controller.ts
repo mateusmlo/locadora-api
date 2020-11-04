@@ -11,10 +11,10 @@ import {
   ValidationPipe,
 } from '@nestjs/common';
 import { MovieDTO } from './dto/movie.dto';
-import { MoviesService } from './movies.service';
+import MoviesService from './movies.service';
 
 @Controller('movies')
-export class MoviesController {
+export default class MoviesController {
   constructor(private moviesService: MoviesService) {}
 
   @Get()

@@ -8,37 +8,37 @@ import {
 
 @Entity()
 @Unique(['title'])
-export class Movie extends BaseEntity {
+export default class Movie extends BaseEntity {
   @PrimaryGeneratedColumn()
-  id: number;
+  public id: number;
 
   @Column()
-  title: string;
+  public title: string;
 
   @Column({
     type: 'varchar',
     length: 200,
   })
-  synopsis: string;
+  public synopsis: string;
 
   @Column()
-  gender: string;
+  public gender: string;
 
   @Column({ nullable: true })
-  release_date: string;
+  public release_date: string;
 
   @Column()
-  language: string;
+  public language: string;
 
   @Column()
-  subbed: boolean;
+  public subbed: boolean;
 
   @Column({ nullable: true })
-  director: string;
+  public director: string;
 
   @Column({ nullable: true })
-  IMDB: string;
+  public IMDB: string;
 
   @Column()
-  quantity: number;
+  public quantity: number;
 }

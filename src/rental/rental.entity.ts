@@ -1,4 +1,4 @@
-import { Movie } from 'src/movies/movie.entity';
+import Movie from 'src/movies/movie.entity';
 import {
   BaseEntity,
   Column,

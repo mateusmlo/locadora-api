@@ -1,18 +1,19 @@
 {
   "compilerOptions": {
-    "module": "commonjs",
+    "module": "CommonJS",
     "declaration": true,
     "removeComments": true,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "allowSyntheticDefaultImports": true,
-    "target": "es2017",
+    "target": "es2019",
     "sourceMap": true,
     "outDir": "./dist",
     "baseUrl": "./",
     "incremental": true,
-    "moduleResolution": "node"
+    "moduleResolution": "node",
+    "alwaysStrict": true,
+    "noImplicitAny": true
   },
-  "include": ["src/**/*"],
-  "exclude": ["**/*.sqlite"]
+  "exclude": ["node_modules", "dist"]
 }

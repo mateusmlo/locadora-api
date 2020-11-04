@@ -1,17 +1,24 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import {
+  BadRequestException,
+  HttpException,
+  HttpStatus,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
 import { MovieDTO } from './dto/movie.dto';
-import { MovieRepository } from './movie.repository';
+import Movie from './movie.entity';
 
 @Injectable()
-export class MoviesService {
+export default class MoviesService {
   constructor(
-    @InjectRepository(MovieRepository)
-    private movieRepository: MovieRepository,
+    @InjectRepository(Movie)
+    private movieRepository: Repository<Movie>,
   ) {}
 
   async getMovies() {
-    return this.movieRepository.getMovies();
+    return this.movieRepository.find();
   }
 
   async getMovieByID(id: number) {
@@ -23,39 +30,32 @@ export class MoviesService {
   }
 
   async createMovie(movieDto: MovieDTO) {
-    return this.movieRepository.createMovie(movieDto);
-  }
+    const movie = this.movieRepository.create(movieDto);
 
-  async updateMovie(id: number, movieDto: MovieDTO) {
-    const {
-      title,
-      synopsis,
-      gender,
-      release_date,
-      language,
-      subbed,
-      director,
-      IMDB,
-      quantity,
-    } = movieDto;
+    try {
+      await this.movieRepository.save(movie);
+    } catch (err) {
+      throw new BadRequestException('Movie already exists in database.');
+    }
 
-    const movie = await this.getMovieByID(id);
-
-    movie.title = title;
-    movie.synopsis = synopsis;
-    movie.gender = gender;
-    movie.release_date = release_date;
-    movie.language = language;
-    movie.subbed = subbed;
-    movie.director = director;
-    movie.IMDB = IMDB;
-    movie.quantity = quantity;
-
-    await movie.save();
     return movie;
   }
 
+  async updateMovie(id: number, movieDto: MovieDTO) {
+    await this.movieRepository.update(id, movieDto);
+
+    const updatedMovie = await this.movieRepository.findOne(id);
+    if (updatedMovie) return updatedMovie;
+
+    throw new HttpException('Movie not found', HttpStatus.NOT_FOUND);
+  }
+
   async deleteMovie(id: number) {
-    return await this.movieRepository.delete(id);
+    const deletedMovie = await this.movieRepository.delete(id);
+
+    if (deletedMovie.affected === 0)
+      throw new BadRequestException(
+        'Could not delete movie. Check if correct ID was provided.',
+      );
   }
 }

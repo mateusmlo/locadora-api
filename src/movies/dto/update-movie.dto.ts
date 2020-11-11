@@ -1,31 +1,31 @@
 import {
   IsBoolean,
-  IsNotEmpty,
+  IsBooleanString,
   IsNumber,
   IsOptional,
   MaxLength,
   MinLength,
 } from 'class-validator';
 
-export class MovieDTO {
-  @IsNotEmpty()
+export class UpdateMovieDTO {
+  @IsOptional()
   title: string;
 
-  @IsNotEmpty()
   @MinLength(10)
   @MaxLength(200)
+  @IsOptional()
   synopsis: string;
 
-  @IsNotEmpty()
+  @IsOptional()
   gender: string;
 
   @IsOptional()
   release_date: string;
 
-  @IsNotEmpty()
+  @IsOptional()
   language: string;
 
-  @IsNotEmpty()
+  @IsOptional()
   @IsBoolean()
   subbed: boolean;
 
@@ -33,7 +33,7 @@ export class MovieDTO {
   director: string;
 
   @IsOptional()
-  IMDB: string;
+  IMDB?: string;
 
   @IsNumber(
     {
@@ -44,6 +44,6 @@ export class MovieDTO {
       message: 'Invalid quantity value. A number is expected.',
     },
   )
-  @IsNotEmpty()
+  @IsOptional()
   quantity: number;
 }

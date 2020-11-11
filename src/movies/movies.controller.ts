@@ -11,6 +11,7 @@ import {
   ValidationPipe,
 } from '@nestjs/common';
 import { MovieDTO } from './dto/movie.dto';
+import { UpdateMovieDTO } from './dto/update-movie.dto';
 import MoviesService from './movies.service';
 
 @Controller('movies')
@@ -34,11 +35,12 @@ export default class MoviesController {
   }
 
   @Patch('/:id/update-movie')
+  @UsePipes(ValidationPipe)
   updateMovie(
     @Param('id', ParseIntPipe) id: number,
-    @Body() movieDto: MovieDTO,
+    @Body() updateMovieDto: UpdateMovieDTO,
   ) {
-    return this.moviesService.updateMovie(id, movieDto);
+    return this.moviesService.updateMovie(id, updateMovieDto);
   }
 
   @Delete('/:id')

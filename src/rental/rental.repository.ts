@@ -4,17 +4,15 @@ import { Rental } from './rental.entity';
 import moment = require('moment');
 import 'moment/locale/pt-br';
 import Movie from 'src/movies/movie.entity';
-import { Logger, NotFoundException } from '@nestjs/common';
+import {
+  InternalServerErrorException,
+  Logger,
+  NotFoundException,
+} from '@nestjs/common';
 moment.locale('pt-br');
 
 @EntityRepository(Rental)
 export class RentalRepository extends Repository<Rental> {
-  async getRentedMovies() {
-    const rentedMovies = await this.createQueryBuilder('rent').getMany();
-
-    return rentedMovies;
-  }
-
   async returnRent(rentMovieDto: RentalDTO) {
     const { movieID, renter } = rentMovieDto;
 
@@ -36,7 +34,7 @@ export class RentalRepository extends Repository<Rental> {
 
       //update movie quantity
       mv.quantity += 1;
-      //await mv.save();
+      await mv.save();
 
       // remove rent column
       return {
@@ -49,7 +47,7 @@ export class RentalRepository extends Repository<Rental> {
   }
 
   async getExpiredRents() {
-    const rents = await this.getRentedMovies();
+    const rents = await this.find();
 
     const expiredSince = rents.map(rent => ({
       ...rent,
@@ -74,19 +72,12 @@ export class RentalRepository extends Repository<Rental> {
       .getOne();
 
     const rentDay = this.getToday();
-
     // can't reference rentDay to add, it mutates the instance
     const returnDay = this.getToday().add(1, 'week');
-
-    if (mv.quantity === 0)
-      throw new NotFoundException(
-        'This movie is not available for rent at the moment.',
-      );
 
     const rent = new Rental();
     rent.movie = movieID;
     rent.movie_title = mv.title;
-    rent.quantity = 1;
     rent.rent_date = rentDay.format('L');
     rent.return_due = rentDay.to(returnDay);
     rent.renter = renter;
@@ -95,13 +86,14 @@ export class RentalRepository extends Repository<Rental> {
     try {
       // update movie quantity
       mv.quantity -= 1;
-      // await mv.save();
+      await mv.save();
 
       //perform rent
       await rent.save();
       return rent;
     } catch (err) {
-      Logger.error(err);
+      console.log(err);
+      throw new InternalServerErrorException('Could not rent movie.');
     }
   }
 

@@ -1,13 +1,12 @@
 import {
   BadRequestException,
-  HttpException,
-  HttpStatus,
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { MovieDTO } from './dto/movie.dto';
+import { UpdateMovieDTO } from './dto/update-movie.dto';
 import Movie from './movie.entity';
 
 @Injectable()
@@ -18,15 +17,15 @@ export default class MoviesService {
   ) {}
 
   async getMovies() {
-    return this.movieRepository.find();
+    return await this.movieRepository.find();
   }
 
   async getMovieByID(id: number) {
-    const movie = await this.movieRepository.findOne(id);
-
-    if (!movie) throw new NotFoundException(`Movie with ID ${id} not found.`);
-
-    return movie;
+    try {
+      return await this.movieRepository.findOne(id);
+    } catch (err) {
+      throw new NotFoundException(`Movie with ID ${id} not found.`);
+    }
   }
 
   async createMovie(movieDto: MovieDTO) {
@@ -34,20 +33,18 @@ export default class MoviesService {
 
     try {
       await this.movieRepository.save(movie);
+      return movie;
     } catch (err) {
       throw new BadRequestException('Movie already exists in database.');
     }
-
-    return movie;
   }
 
-  async updateMovie(id: number, movieDto: MovieDTO) {
-    await this.movieRepository.update(id, movieDto);
-
-    const updatedMovie = await this.movieRepository.findOne(id);
-    if (updatedMovie) return updatedMovie;
-
-    throw new HttpException('Movie not found', HttpStatus.NOT_FOUND);
+  async updateMovie(id: number, updateMovieDto: UpdateMovieDTO) {
+    try {
+      await this.movieRepository.update(id, updateMovieDto);
+    } catch (err) {
+      throw new BadRequestException(err);
+    }
   }
 
   async deleteMovie(id: number) {

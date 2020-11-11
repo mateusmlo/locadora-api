@@ -4,7 +4,7 @@ import {
   Column,
   Entity,
   JoinColumn,
-  OneToOne,
+  ManyToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 
@@ -13,7 +13,10 @@ export class Rental extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @OneToOne(type => Movie)
+  @ManyToOne(
+    () => Movie,
+    (movie: Movie) => movie.id,
+  )
   @JoinColumn()
   movie: Movie;
 

@@ -1,7 +1,9 @@
+import { Rental } from 'src/rental/rental.entity';
 import {
   BaseEntity,
   Column,
   Entity,
+  OneToMany,
   PrimaryGeneratedColumn,
   Unique,
 } from 'typeorm';
@@ -10,35 +12,41 @@ import {
 @Unique(['title'])
 export default class Movie extends BaseEntity {
   @PrimaryGeneratedColumn()
-  public id: number;
+  id: number;
 
   @Column()
-  public title: string;
+  title: string;
 
   @Column({
-    type: 'varchar',
     length: 200,
   })
-  public synopsis: string;
+  synopsis: string;
 
   @Column()
-  public gender: string;
+  gender: string;
 
   @Column({ nullable: true })
-  public release_date: string;
+  release_date: string;
 
   @Column()
-  public language: string;
+  language: string;
 
   @Column()
-  public subbed: boolean;
+  subbed: boolean;
 
   @Column({ nullable: true })
-  public director: string;
+  director: string;
 
   @Column({ nullable: true })
-  public IMDB: string;
+  IMDB: string;
 
   @Column()
-  public quantity: number;
+  quantity: number;
+
+  @OneToMany(
+    () => Rental,
+    (rental: Rental) => rental.movie,
+    { eager: true },
+  )
+  rentals: Rental[];
 }
